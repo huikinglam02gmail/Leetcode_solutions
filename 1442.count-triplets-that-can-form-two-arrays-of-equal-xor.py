@@ -13,6 +13,17 @@ class Solution:
     # Each with contribute len(0 XOR subarray) - 1 to the result
 
     def countTriplets(self, arr: List[int]) -> int:
-        
+        prefix = [0]
+        Seen = {0: [0]}
+        result = 0
+        for i, num in enumerate(arr):
+            prefix.append(prefix[-1]^num)
+            if prefix[-1] in Seen:
+                for j in Seen[prefix[-1]]:
+                    result += i - j
+            else:
+                Seen[prefix[-1]] = []
+            Seen[prefix[-1]].append(i+1)
+        return result
 # @lc code=end
 
