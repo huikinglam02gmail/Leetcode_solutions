@@ -10,35 +10,27 @@ public class Solution
     public int CountTriplets(int[] arr)
     {
         List<int> prefix = new List<int>();
-        Dictionary<int, Dictionary<int,int>> hashTableEnd = new Dictionary<int, Dictionary<int,int>>();
+        Dictionary<int, List<int>> Seen = new Dictionary<int, List<int>>();
         int n = arr.Length;
         int result = 0;
 
         prefix.Add(0);
+        Seen.Add(0,new List<int> {0});
         for (int i = 0; i < n; i++)
         {
             prefix.Add(prefix[prefix.Count()-1]^arr[i]);
-        }
-
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = i+1; j < n+1; j++)
+            if (Seen.ContainsKey(prefix[prefix.Count()-1]))
             {
-                int pair = prefix[i]^prefix[j];
-                if (!hashTableEnd.ContainsKey(pair))
+                foreach (int j in Seen[prefix[prefix.Count()-1]])
                 {
-                    hashTableEnd[pair] = new Dictionary<int, int>();
+                    result += i - j;
                 }
-                if (!hashTableEnd[pair].ContainsKey(j))
-                {
-                    hashTableEnd[pair][j] = 0;
-                }
-                hashTableEnd[pair][j] += 1;
-                if  (hashTableEnd[pair].ContainsKey(i))
-                {
-                    result += hashTableEnd[pair][i];
-                }                
             }
+            else
+            {
+                Seen.Add(prefix[prefix.Count()-1], new List<int>());
+            }
+            Seen[prefix[prefix.Count()-1]].Add(i + 1);
         }
         return result;    
     }
