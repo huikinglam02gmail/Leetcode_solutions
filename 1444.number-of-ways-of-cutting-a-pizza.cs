@@ -20,6 +20,17 @@ public class Solution
     long dp(int i, int j, int c)
     {
         Tuple<int, int, int> key = new Tuple<int, int, int>(i, j, c);
+        if (c == 0)
+        {
+            if (sumRegion(i, j, m-1, n-1) >= 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }       
         if (memo.ContainsKey(key))
         {
             return memo[key];
@@ -27,17 +38,6 @@ public class Solution
         else
         {
             long result;
-            if (c == 0)
-            {
-                if (sumRegion(i, j, m-1, n-1) >= 1)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
             if (sumRegion(i, j, m-1, n-1) == 0)
             {
                 return 0;
@@ -61,7 +61,6 @@ public class Solution
                 }
             }
             memo.Add(key, result);
-            Console.WriteLine($"{key}, {result}");
             return result;
         }
     }
