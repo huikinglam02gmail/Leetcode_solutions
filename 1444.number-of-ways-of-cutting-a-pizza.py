@@ -28,11 +28,9 @@ class Solution:
             for l in range(1, self.m + 1):
                 if self.sumRegion(i, j, l-1, self.n-1) >= 1:
                     result += self.dp(l, j, c - 1)
-                    result %= self.MOD;
             for l in range(1, self.n + 1):
                 if self.sumRegion(i, j, self.m-1, l-1) >= 1:
                     result += self.dp(i, l, c - 1)
-                    result %= self.MOD;
             return result                
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
@@ -46,7 +44,7 @@ class Solution:
                 self.P[i][j] = self.P[i-1][j] + self.P[i][j-1] - self.P[i-1][j-1]
                 if pizza[i-1][j-1] == 'A':
                     self.P[i][j] += 1
-        return self.dp(0,0,k-1)
+        return self.dp(0,0,k-1) % self.MOD
     
         
 # @lc code=end
