@@ -7,7 +7,6 @@
 # @lc code=start
 from typing import List
 
-
 class NumMatrix:
     # Store the prefix sum matrix
     # Calculate by removing the extra and account for overlap    
