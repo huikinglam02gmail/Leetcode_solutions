@@ -7,24 +7,24 @@
 // @lc code=start
 public class Solution 
 {
-    List<List<int>> combinationIndicies;
     List<int> tmp;
 
-    public void makeCombiUtil(int n, int left, int k)
+    public IEnumerable<List<int>> makeCombiUtil(int n, int left, int k)
     {
         // Pushing this vector to a vector of vector
         if (k == 0) 
         {
-            combinationIndicies.Add(tmp.Select(s => s).ToList());
-            return;
+            yield return tmp.Select(s => s).ToList();
         }
   
         // i iterates from left to n - 1. First time left will be 0
         for (int i = left; i < n; i++)
         {
             tmp.Add(i);
-            makeCombiUtil(n, i + 1, k - 1);
-  
+            foreach (var x in makeCombiUtil(n, i + 1, k - 1))
+            {
+                yield return x;
+            }
             // Popping out last inserted element from the vector
             tmp.RemoveAt(tmp.Count - 1);
         }
@@ -69,16 +69,15 @@ public class Solution
             }
             else
             {
-                combinationIndicies = new List<List<int>>();
                 tmp = new List<int>();
-                makeCombiUtil(candidate.Count, 0, k);
-                foreach (List<int> indices in combinationIndicies)
+                foreach (List<int> indices in makeCombiUtil(candidate.Count, 0, k))
                 {
                     List<int> candidatePick = new List<int>();
                     foreach (int index in indices)
                     {
                         candidatePick.Add(candidate[index]);
                     }
+                    
                     candidates.Add(candidatePick);
                 }
             }
