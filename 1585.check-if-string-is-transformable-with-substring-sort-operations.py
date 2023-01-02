@@ -6,13 +6,26 @@
 
 # @lc code=start
 class Solution:
-    # We should note that we cannot move a character to its right actively
-    # And when we move a character to the left, we can do so if there are no 
+    # First note that we cannot actively move a character to its right
+    # When we move a character to the left, we can do so if
+    # there are no elements smaller than itself on its left
     # The question is only asking for if it's possible, not the optimal path
-    # So for each digit in t (t[i]), we find the corresponding position in s s[j]
-    # If i > j, we ask if s[k] > s[i] for all j <= k < i
-    # In other words, we can check for digit < s[i], and make sure there are no entries between i and j
+    # Our strategy will be like this:
+    # First record all appearance of of each digit
+    # Then for each character in t
+    # Ask if the appearance of smaller digits is always later than itself. 
     def isTransformable(self, s: str, t: str) -> bool:
-        
+        appearance = [[] for i in range(10)]
+        seenInT = [0]*10
+        for i, c in enumerate(s):
+            appearance[int(c)].append(i)
+        for c in t:
+            if seenInT[int(c)] >= len(appearance[int(c)]):
+                return False
+            for i in range(int(c)):
+                if seenInT[i] < len(appearance[i]) and appearance[i][seenInT[i]] < appearance[int(c)][seenInT[int(c)]]:
+                    return False
+            seenInT[int(c)] += 1
+        return True
 # @lc code=end
 
