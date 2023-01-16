@@ -5,20 +5,59 @@
 #
 
 # @lc code=start
+from collections import deque
 from typing import List
 
 
 class Solution:
     # 2 <= n <= 15
-    # possible to use bitmask to represent every state
-    # So given a state, we can dfs from any node 
-    # and ask if we can reach every node inside the set
-    # If so, it is a valid subset
-    # For the DFS, we make use of the diameter of tree algorithm:
-    # Longest path between any two nodes within a substree is equal to maximum of:
-    # 1. Longest path within the subtree formed by any of its children node
-    # 2. Sum of 2 maximum heights that can be reached from the node
-    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -> List[int]:
-        
-# @lc code=end
+    # Therefore can use bitmask to represent cities included
+    # For each mask, we bfs from one of the nodes
+    # if we cannot reach every node, it means the current mask does not represent a valid subset
+    # if we pass the test, we bfs from the last member in topologically sorted and get the maximum distance
+    
+    def bfs(self, mask, start):
+        dq = deque()
+        visited = []
+        dq.append(start)
+        visited.append(start)
+        steps = 0
+        while dq:
+            for i in range(len(dq)):
+                node = dq.popleft()
+                for nxt in self.graph[node]:
+                    if mask & (1 << nxt) != 0 and nxt not in visited:
+                        dq.append(nxt)
+                        visited.append(nxt)
+            if dq:
+                steps += 1
+        return [steps] + visited
 
+    def setBitCounter(self, mask):
+        result = 0
+        while mask > 0:
+            if mask % 2 == 1:
+                result += 1
+            mask = mask >> 1
+        return result
+
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -> List[int]:
+        self.graph = [set() for i in range(n)]
+        result = [0]*n
+        for a, b in edges:
+            self.graph[a - 1].add(b - 1)
+            self.graph[b - 1].add(a - 1)
+        
+        for mask in range(1 << n):
+            i = 0
+            while (i < n and mask & (1 << i) == 0):
+                i += 1
+            if i < n:
+                bfsResult = self.bfs(mask, i)
+                if len(bfsResult) - 1 == self.setBitCounter(mask):
+                    lastNode = bfsResult.pop()
+                    bfsResultFromEdge = self.bfs(mask, lastNode)
+                    result[bfsResultFromEdge[0]] += 1
+        return result[1:]
+
+# @lc code=end
