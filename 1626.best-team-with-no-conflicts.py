@@ -5,11 +5,13 @@
 #
 
 # @lc code=start
+from functools import lru_cache
 from typing import List
 
 
 class Solution:
+    # We first group the data together in 
+  
     def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
-        
 # @lc code=end
 
