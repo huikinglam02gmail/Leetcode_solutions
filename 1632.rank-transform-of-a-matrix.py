@@ -27,9 +27,14 @@ class UnionFindSet:
 class Solution:
     # We first sort the values in matrix
     # Then we build the graph from small value to large
-    # The trick is for a value appearing multiple times in the matrix, we need to build the disjoint-set structure
-    # and assign the rank of the corresponding row and col + 1 and take the max among the two
-    # After going through all elements, we assign the maximum seen of each cluster to each member
+    # The trick is for a value appearing multiple times in the matrix, 
+    # we need to build the disjoint-set structure
+    # This structure has m + n elements (m = row number, n = column number)
+    # For each element belonging to the value, we union up the corresponding row and col.
+    # Then we loop through the rows and columns and assign rankMax[find[i]] = max(rank[find[i]], rank[i])
+    # We also record the inverse mapping from find[i] to each i
+    # Therefore the find[i] for each cluster should contain the maximum rank for the row-group in each round
+    # So update the new rank and assign the result
     def matrixRankTransform(self, matrix: List[List[int]]) -> List[List[int]]:
         m, n = len(matrix), len(matrix[0])
         hashTable = {}
@@ -40,32 +45,21 @@ class Solution:
                 hashTable[matrix[i][j]].append([i,j])
 
         result = [[0 for j in range(n)] for i in range(m)]
-        rankX = [0]*m
-        rankY = [0]*n
-        values = list(hashTable.keys())
-        values.sort()
-        for value in values:
-            l =  len(hashTable[value])
-            UF = UnionFindSet(l)
-            # get the supposed next value if each element does not interact with others
-            rankXTemp = [0] * l
-            rankYTemp = [0] * l
-            for i in range(l):
-                rankXTemp[i] = rankX[hashTable[value][i][0]] + 1
-                rankYTemp[i] = rankX[hashTable[value][i][1]] + 1
-            if l > 1:
-                for i in range(l-1):
-                    for j in range(i+1,l):
-                        if hashTable[value][i][0] == hashTable[value][j][0] or hashTable[value][i][1] == hashTable[value][j][1]:
-                            maxRankXij = max(rankXTemp[UF.find(i)], rankXTemp[UF.find(j)])
-                            maxRankYij = max(rankYTemp[UF.find(i)], rankYTemp[UF.find(j)])
-                            UF.union(i, j)
-                            rankXTemp[UF.find(i)],  rankYTemp[UF.find(j)] = maxRankXij, maxRankYij
-            for i in range(l):
-                rankX[hashTable[value][i][0]] = max(rankX[hashTable[value][i][0]], rankXTemp[UF.find(i)])
-                rankY[hashTable[value][i][1]] = max(rankX[hashTable[value][i][1]], rankYTemp[UF.find(i)])
-                result[hashTable[value][i][0]][hashTable[value][i][1]] = max(rankX[hashTable[value][i][0]], rankY[hashTable[value][i][0]])
-            print(value, rankX, rankY)                           
+        rank = [0]* (m + n)
+        for value in sorted(hashTable.keys()):
+            UF = UnionFindSet(m + n)
+            changed = set()
+            for x, y in hashTable[value]:
+                UF.union(x, y + m)
+                changed.add(x)
+                changed.add(y + m)
+            rankMax = rank.copy()
+            for i in changed:
+                j = UF.find(i)
+                rankMax[j] = max(rankMax[j], rank[i])
+            for i in changed:
+                rank[i] = rankMax[UF.find(i)] + 1
+            for x, y in hashTable[value]:
+                result[x][y] = rank[x]
         return result            
 # @lc code=end
-
