@@ -22,19 +22,16 @@ class Solution:
     Therefore we binary search until reaching len(prefix), and return the accumulated days    
     '''
 
-    
     def getdays(self, capacity):
-        day, i = 0, 0
-        print(self.prefix)
+        day, i, j = 0, 0, 0
         while i < len(self.prefix):
-            j = i
-            while j < len(self.prefix) and self.prefix[j] <= self.prefix[i] + capacity:
+            while j < len(self.prefix) and self.prefix[j] - self.prefix[i]<= capacity:
                 j += 1
-            if j < len(self.prefix):
+            if  j < len(self.prefix) and self.prefix[j] - self.prefix[i] > capacity:
                 i = j - 1
+            else:
+                i = j            
             day += 1
-            print(i, j)
-        print(capacity, day)
         return day
         
     def shipWithinDays(self, weights: List[int], days: int) -> int:
@@ -43,7 +40,7 @@ class Solution:
             self.prefix.append(self.prefix[-1] + weight)
         left, right = max(weights), self.prefix[-1]
         while left < right:
-            mid = (left + right) // 2
+            mid = left + (right - left) // 2
             if self.getdays(mid) <= days:
                 right = mid 
             else:
