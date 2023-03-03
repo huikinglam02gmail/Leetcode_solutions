@@ -7,7 +7,8 @@
 // @lc code=start
 public class Solution 
 {
-    public int MinDistance(string word1, string word2) {
+    public int MinDistance(string word1, string word2) 
+    {
         
     }
 }
