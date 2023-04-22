@@ -25,17 +25,18 @@ class Solution:
     recursive function
     matching nodes: left vs right and right vs left or both empty    
     '''
-
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        return self.mirror_comparison(root, root)
+    
     def mirror_comparison(self, node1: Optional[TreeNode], node2: Optional[TreeNode])-> bool:
         if not node1:
             return not node2
-        if not node2:
-            return not node1
-        if node1.val != node2.val:
+        elif not node2:
             return False
-        return self.mirror_comparison(node1.left, node2.right) and self.mirror_comparison(node1.right, node2.left)
+        elif node1.val != node2.val:
+            return False
+        else:
+            return self.mirror_comparison(node1.left, node2.right) and self.mirror_comparison(node1.right, node2.left)
 
-    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        return self.mirror_comparison(root, root)
 # @lc code=end
 
