@@ -6,10 +6,13 @@
 
 # @lc code=start
 import bisect
+from typing import List
 class Solution:
-    # As we are looking for subsequences we are free to sort the array
-    # This would help us to locate the minimum of subsequence at left and maximum at right
-    # Then for each index, we just binary search for target - nums[i] 
+    '''
+    As we are looking for subsequences we are free to sort the array
+    This would help us to locate the minimum of subsequence at left and maximum at right
+    Then for each index, we just binary search for target - nums[i]     
+    '''
     def numSubseq(self, nums: List[int], target: int) -> int:
         MOD = pow(10,9) + 7
         pow2 = []

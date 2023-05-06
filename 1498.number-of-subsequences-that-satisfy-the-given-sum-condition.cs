@@ -32,18 +32,12 @@ public class Solution
         int n = nums.Length;
         long result = 0;
         long[] pow2 = new long[n];
+        pow2[0] = 1;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 1; i < n; i++)
         {
-            if (i == 0)
-            {
-                pow2[i] = 1;
-            }
-            else
-            {
-                pow2[i] = 2*pow2[i-1];
-                pow2[i] %= MOD;
-            }
+            pow2[i] = 2*pow2[i-1];
+            pow2[i] %= MOD;
         }    
 
         Array.Sort(nums);
