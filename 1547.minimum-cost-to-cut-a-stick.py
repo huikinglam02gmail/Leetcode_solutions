@@ -10,12 +10,14 @@ from typing import List
 
 
 class Solution:
-    # A classic DP problem
-    # Add 0 and n to cuts
-    # Sort cuts to faciliate labelling and extraction of length
-    # So let dp[i][j] = minimum total cost to cut the stick between i and j
-    # We are looking for dp[0][l], l = len(cut)
-    # As long as i != j - 1, we can look for the minimum of cuts[j] - cuts[i] + min(dp[i][k] + dp[k][j]), i < k < j
+    '''
+    A classic DP problem. Add 0 and n to cuts
+    Sort cuts to faciliate labelling and extraction of length
+    So let dp[i][j] = minimum total cost to cut the stick between i and j
+    We are looking for dp[0][l], l = len(cut)
+    As long as i != j - 1, we can look for the minimum of cuts[j] - cuts[i] + min(dp[i][k] + dp[k][j]), i < k < j   
+    '''
+
 
     @lru_cache(None)
     def dp(self, i, j):

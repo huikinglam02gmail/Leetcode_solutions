@@ -5,6 +5,8 @@
  */
 
 // @lc code=start
+using System;
+using System.Collections.Generic;
 public class Solution 
 {
     int[] Cuts;
