@@ -1,12 +1,13 @@
 /*
- * @lc app=leetcode id=85 lang=csharp
+ * @lc app=leetcode id=1727 lang=csharp
  *
- * [85] Maximal Rectangle
+ * [1727] Largest Submatrix With Rearrangements
  */
 
 // @lc code=start
-using System.Collections.Generic;
+using System.Linq;
 using System;
+using System.Collections.Generic;
 public class Solution 
 {
     public int LargestRectangleArea(int[] heights) 
@@ -40,21 +41,10 @@ public class Solution
         return maxArea;
     }
 
-    public int MaximalRectangle(char[][] matrix)
+    public int LargestSubmatrix(int[][] matrix) 
     {
         int rows = matrix.Length;
-        if (rows == 0) return 0;
         int cols = matrix[0].Length;
-
-        int[,] numbers = new int[rows, cols];
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                numbers[i, j] = Convert.ToInt32(matrix[i][j].ToString());
-            }
-        }
-
         int maxArea = 0;
         int[] row = new int[cols];
         for (int i = 0; i < rows; i++)
@@ -63,24 +53,24 @@ public class Solution
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    row[j] = numbers[i, j];
+                    row[j] = matrix[i][j];
                 }
             }
             else
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    if (numbers[i, j] == 0)
+                    if (matrix[i][j] == 0)
                     {
                         row[j] = 0;
                     }
                     else
                     {
-                        row[j] += numbers[i, j];
+                        row[j] += matrix[i][j];
                     }
                 }
             }
-            maxArea = Math.Max(maxArea, LargestRectangleArea(row));
+            maxArea = Math.Max(maxArea, LargestRectangleArea(row.OrderBy(x => x).ToArray()));
         }
 
         return maxArea;
