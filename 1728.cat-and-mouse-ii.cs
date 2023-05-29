@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 public class Solution
 {
-    
+
 
     public bool CanMouseWin(string[] grid, int catJump, int mouseJump)
     {
@@ -71,29 +71,25 @@ public class Solution
                 GraphCat[new Tuple<int, int>(r, c)] = PrevPositions(r, c, catJump);
                 for (int turn = 0; turn < 2; turn++)
                 {
-                    if (!cache.ContainsKey(new Tuple<int, int, int, int, int>(r, c, r, c, turn)))
+                    if (cache.TryAdd(new Tuple<int, int, int, int, int>(r, c, r, c, turn), 0))
                     {
-                        cache.Add(new Tuple<int, int, int, int, int>(r, c, r, c, turn), 0);
+                        cache[new Tuple<int, int, int, int, int>(r, c, r, c, turn)] = 2;
                     }
-                    if (!cache.ContainsKey(new Tuple<int, int, int, int, int>(r, c, food[0], food[1], turn)))
+                    if (cache.TryAdd(new Tuple<int, int, int, int, int>(r, c, food[0], food[1], turn), 0))
                     {
-                        cache.Add(new Tuple<int, int, int, int, int>(r, c, food[0], food[1], turn), 0);
+                        cache[new Tuple<int, int, int, int, int>(r, c, food[0], food[1], turn)] = 2;
                     }
-                    if (!cache.ContainsKey(new Tuple<int, int, int, int, int>(food[0], food[1], r, c, turn)))
+                    if (cache.TryAdd(new Tuple<int, int, int, int, int>(food[0], food[1], r, c, turn), 0))
                     {
-                        cache.Add(new Tuple<int, int, int, int, int>(food[0], food[1], r, c, turn), 0);
+                        cache[new Tuple<int, int, int, int, int>(food[0], food[1], r, c, turn)] = 1;                        
                     }       
-                    cache[new Tuple<int, int, int, int, int>(r, c, r, c, turn)] = 2;             
-                    cache[new Tuple<int, int, int, int, int>(r, c, food[0], food[1], turn)] = 2;
-                    cache[new Tuple<int, int, int, int, int>(food[0], food[1], r, c, turn)] = 1;
                     dq.Enqueue(new Tuple<int, int, int, int, int>(food[0], food[1], r, c, turn));
                 }
             }
         }
 
-        while (dq.Count > 0)
+        while (dq.TryDequeue(out Tuple<int, int, int, int, int> t))
         {
-            Tuple<int, int, int, int, int> t = dq.Dequeue();
             if (t.Item5 == 0)
             {
                 foreach (Tuple<int, int> prevMouse in GraphMouse[new Tuple<int, int>(t.Item1, t.Item2)])
@@ -104,7 +100,9 @@ public class Solution
                         cache.Add(lastState, 0);
                     }
                     if (cache[lastState] > 0)
-                        continue;
+                    {
+                        continue;                        
+                    }
                     else
                     {
                         cache[lastState] = 1;
