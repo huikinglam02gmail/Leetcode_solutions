@@ -11,10 +11,32 @@ using System.Collections.Generic;
 
 public class Solution
 {
+    string[] Grid;
+    public HashSet<Tuple<int, int>> PrevPositions(int x, int y, int jump)
+    {
+        HashSet<Tuple<int, int>> result = new HashSet<Tuple<int, int>>();
+        int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 0, -1 }, new int[] { 1, 0 }, new int[] { -1, 0 } };
 
+        foreach (int[] direction in directions)
+        {
+            for (int i = 0; i <= jump; i++)
+            {
+                int newX = x + direction[0] * i;
+                int newY = y + direction[1] * i;
+                if (!(newX >= 0 && newX < Grid.Length && newY >= 0 && newY < Grid[0].Length) || Grid[newX][newY] == '#')
+                {
+                    break;
+                }
+                result.Add(new Tuple<int, int> ( newX, newY ));
+            }
+        }
+
+        return result;
+    }
 
     public bool CanMouseWin(string[] grid, int catJump, int mouseJump)
     {
+        Grid = grid;
         int m = grid.Length;
         int n = grid[0].Length;
         int[] mouse = new int[2];
@@ -34,25 +56,7 @@ public class Solution
             }
         }
 
-        HashSet<Tuple<int, int>> PrevPositions(int x, int y, int jump)
-        {
-            HashSet<Tuple<int, int>> result = new HashSet<Tuple<int, int>>();
-            int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 0, -1 }, new int[] { 1, 0 }, new int[] { -1, 0 } };
 
-            foreach (int[] direction in directions)
-            {
-                for (int i = 0; i <= jump; i++)
-                {
-                    int newX = x + direction[0] * i;
-                    int newY = y + direction[1] * i;
-                    if (!(newX >= 0 && newX < m && newY >= 0 && newY < n) || grid[newX][newY] == '#')
-                        break;
-                    result.Add(new Tuple<int, int> ( newX, newY ));
-                }
-            }
-
-            return result;
-        }
 
         Dictionary<Tuple<int, int, int, int, int>, int> cache = new Dictionary<Tuple<int, int, int, int, int>, int>();
         Dictionary<Tuple<int, int>, HashSet<Tuple<int, int>>> GraphMouse = new Dictionary<Tuple<int, int>, HashSet<Tuple<int, int>>>();
