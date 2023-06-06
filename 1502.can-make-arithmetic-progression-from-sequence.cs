@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+using System;
 public class Solution 
 {
     public bool CanMakeArithmeticProgression(int[] arr) 
