@@ -5,32 +5,35 @@
  */
 
 // @lc code=start
-
+using System.Collections.Generic;
 public class Solution 
 {
-    long MOD = 1000000007;
+    private List<List<long>> nCr;
+    private const long MOD = 1000000007;
 
-    long mod(long x, long m) 
+    private void initiatenCr(int n)
     {
-        return (x%m + m)%m;
-    }
-
-    public long comb(int n, int r)
-    {
-        if (n == r || r == 0)
+        nCr = new List<List<long>>();
+        List<long> row = new List<long>() { 1 };
+        nCr.Add(row);
+        row = new List<long>() { 1, 2, 1 };
+        nCr.Add(row);
+        for (int i = 2; i < n; i++)
         {
-            return 1;
-        }
-        else
-        {
-            return mod(comb(n - 1, r - 1) + comb(n - 1, r), MOD);
+            row = new List<long>() { 1 };
+            for (int j = 0; j < nCr.Last().Count - 1; j++)
+            {
+                row.Add((nCr.Last()[j] + nCr.Last()[j + 1]) % MOD);
+            }
+            row.Add(1);
+            nCr.Add(row);
         }
     }
 
     public long divideAndConquer(int[] arr)
     {
-        int n = arr.Length;
-        if (arr.Length < 2)
+        int n = arr.Length; 
+        if (arr.Length < 3)
         {
             return 1;
         }
@@ -49,13 +52,13 @@ public class Solution
             }
         }
         int nl = left.Count;
-        return mod(mod(mod(comb(n-1, nl), MOD)*mod(divideAndConquer(left.ToArray()), MOD), MOD)*mod(divideAndConquer(right.ToArray()), MOD), MOD);
+        return (((nCr[n - 2][nl] % MOD) * divideAndConquer(left.ToArray())) % MOD * (divideAndConquer(right.ToArray()))) % MOD; 
     }
     
     public int NumOfWays(int[] nums) 
     {
+        initiatenCr(nums.Length);
         return Convert.ToInt32(divideAndConquer(nums) - 1);
     }
 }
 // @lc code=end
-
