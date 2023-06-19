@@ -1,6 +1,13 @@
 {
     "explorer.sortOrder": "modified",
     "files.associations": {
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "istream": "cpp",
+        "memory": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "xlocnum": "cpp",
+        "xutility": "cpp"
     }
 }
