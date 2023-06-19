@@ -5,23 +5,33 @@
  */
 
 // @lc code=start
-#include <vector>;
+#include <vector>
+#include <algorithm>
+using std::max;
+using std::sort;
+using std::transform;
+using std::upper_bound;
 using std::vector;
+
 class Solution {
+private:
+    int getFirst(vector<int> arr){
+        return arr.front();
+    };
+
 public:
     int maxValue(vector<vector<int>>& events, int k) 
     {
-        events = events.OrderBy(x => x[0]).ToArray();
-        int[] startingPoints = events.Select(x => x[0]).ToArray();
-        int n = events.Length;
-        int[,] dp = new int[n, k + 1];
-        for (int i = 0; i < n; i++)
+        sort(events.begin(), events.end());
+        vector<int> startingPoints{};
+        for (vector<int> event : events)
         {
-            for (int j = 0; j < k + 1; j++)
-            {
-                dp[i, j] = 0;
-            }
+            startingPoints.push_back(event.front());
         }
+        int n = events.size();
+        vector<vector<int>> dp;
+        dp.resize(n, vector<int>(k + 1, 0));
+        int nxtInd;
 
         for (int i = n - 1; i >= 0; i--)
         {
@@ -29,13 +39,13 @@ public:
             {
                 if (i < n - 1)
                 {
-                    dp[i, j] = dp[i + 1, j];                    
+                    dp[i][j] = dp[i + 1][j];                    
                 }
-                int nxtInd = bisectRight<int>(startingPoints, events[i][1]);
-                dp[i, j] = Math.Max(dp[i, j], events[i][2] + (nxtInd < n ? dp[nxtInd, j - 1] : 0));
+                nxtInd = upper_bound(startingPoints.begin(), startingPoints.end(), events[i][1]) - startingPoints.begin();
+                dp[i][j] = max(dp[i][j], events[i][2] + (nxtInd < n ? dp[nxtInd][j - 1] : 0));
             }
         }
-        return dp[0, k];  
+        return dp[0][k];  
     }
 };
 // @lc code=end
