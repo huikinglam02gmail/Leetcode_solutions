@@ -1,5 +1,5 @@
 {
-    "explorer.sortOrder": "modified",
+    "explorer.sortOrder": "default",
     "files.associations": {
         "xstring": "cpp",
         "istream": "cpp",
