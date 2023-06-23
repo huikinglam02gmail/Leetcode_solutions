@@ -9,6 +9,7 @@
 #include<algorithm>
 using std::max;
 using std::max_element;
+using std::move;
 using std::vector;
 class Solution {
 public:
@@ -35,7 +36,7 @@ public:
                 dpNew[3] = max(dp[0], dp[3]);
             }
 
-            dp = vector<int>(dpNew);
+            dp = move(dpNew);
         }
         
         return *max_element(dp.begin(), dp.end());
