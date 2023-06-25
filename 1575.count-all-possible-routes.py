@@ -10,23 +10,24 @@ from typing import List
 
 
 class Solution:
-    # just dp to solve the problem
-    # dp[i][f] = number of ways you arrive at i at the end while you have f of fuel left
-    # We want to sum up dp[finish][0: fuel]
-
-    @lru_cache(None)
-    def dfs(self, loc, f):
-        result = 0
-        if f >= 0:
-            if loc == self.finish:
-                result += 1
-            for i in range(self.n):
-                if i != loc:
-                    result += self.dfs(i, f - abs(self.locations[i] - self.locations[loc])) 
-                    result %= self.MOD
-        return result
+    '''
+    just dp to solve the problem
+    dp[i][f] = number of ways you arrive at i at the end while you have f of fuel left
+    dp[i][f] = sum(dp[j][f])
+    We want to sum up dp[finish][0: fuel]    
+    '''
 
     def countRoutes(self, l: List[int], start: int, fin: int, fuel: int) -> int:
-        self.finish, self.n, self.locations, self.MOD = fin, len(l), l, pow(10, 9) + 7
-        return self.dfs(start, fuel)
+        n, MOD = len(l), pow(10, 9) + 7
+        cost = [[abs(l[i] - l[j]) for i in range(n)] for j in range(n)]
+        dp = [[0 for j in range(fuel + 1)] for i in range(len(l))]
+        dp[start][fuel] = 1
+        for f in range(fuel, -1, -1):
+            for i in range(n):
+                if dp[i][f] > 0:
+                    for j in range(n):
+                        if j != i and f - cost[i][j] >= 0:
+                            dp[j][f - cost[i][j]] += dp[i][f]
+                            dp[j][f - cost[i][j]] %= MOD
+        return sum(dp[fin][:]) % MOD
         

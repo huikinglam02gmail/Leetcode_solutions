@@ -1,30 +1,28 @@
 /*
- * @lc app=leetcode id=1575 lang=csharp
+ * @lc app=leetcode id=1575 lang=cpp
  *
  * [1575] Count All Possible Routes
  */
 
 // @lc code=start
-using System;
-using System.Collections.Generic;
-
-public class Solution {
-    public int CountRoutes(int[] locations, int start, int fin, int fuel) {
-        int n = locations.Length;
-        long MOD = 1000000007;
-        int[][] cost = new int[n][];
+#include<vector>
+#include<algorithm>
+using std::vector;
+using std::abs;
+class Solution {
+public:
+    int countRoutes(vector<int>& locations, int start, int finish, int fuel) {
+        int n = locations.size();
+        long long MOD = 1000000007;
+        vector<vector<int>> cost {};
         for (int i = 0; i < n; i++) {
-            cost[i] = new int[n];
+            cost.push_back(vector<int>{});
             for (int j = 0; j < n; j++) {
-                cost[i][j] = Math.Abs(locations[i] - locations[j]);
+                cost[i].push_back(abs(locations[i] - locations[j]));
             }
         }
 
-        long[][] dp = new long[n][];
-        for (int i = 0; i < n; i++) {
-            dp[i] = new long[fuel + 1];
-        }
-
+        vector<vector<long long>> dp(n, vector<long long>(fuel + 1, 0));
         dp[start][fuel] = 1;
 
         for (int f = fuel; f >= 0; f--) {
@@ -40,16 +38,15 @@ public class Solution {
             }
         }
 
-        long sum = 0;
+        long long sum = 0;
         for (int i = 0; i <= fuel; i++)
         {
-            sum += dp[fin][i];
+            sum += dp[finish][i];
             sum %= MOD;
         }
 
-        return Convert.ToInt32(sum);
+        return (int)sum;
     }
-}
-
+};
 // @lc code=end
 
