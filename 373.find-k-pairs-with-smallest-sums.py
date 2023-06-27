@@ -6,9 +6,13 @@
 
 # @lc code=start
 import heapq
+from typing import List
 
 
 class Solution:
+    '''
+    nums1 and nums2 are both sorted. We therefore maintain a priority queue, putting in the sum of first elements and the indices. Each time we pop, we get the two indices (i, j) and put in nums1[i + 1] + nums2[j] and nums1[i] + nums2[j + 1], if either of them are not visited.
+    '''
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
         heap, n1, n2 = [], len(nums1), len(nums2)
         visited = set()
@@ -25,7 +29,6 @@ class Solution:
                 heapq.heappush(heap, [total - nums2[j] + nums2[j+1], i, j+1])
                 visited.add((i,j+1))
             result.append([nums1[i], nums2[j]])
-            visited.remove((i,j))
         return result            
 # @lc code=end
 
