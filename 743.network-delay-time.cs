@@ -7,47 +7,46 @@
 // @lc code=start
 public class Solution 
 {
-    public int NetworkDelayTime(int[][] times, int n, int k) 
+    private int[] Dijkstra(Dictionary<int, int>[] graph, int source)
     {
-        Dictionary<int, int>[] graph = new Dictionary<int, int>[n];
-        PriorityQueue<int, int> queue = new PriorityQueue<int, int>();
-        bool[] visited = new bool[n];
-        int visitedCount = 0;
-        int result = -1;
-        
-        for (int i = 0; i < n; i++)
-        {
-            graph[i] = new Dictionary<int, int>();
-        }
+        int n = graph.Length;
+        int[] result = new int[n];
+        Array.Fill(result, -1);
 
-        foreach (int[] time in times)
-        {
-            graph[time[0] - 1].Add(time[1] - 1, time[2]);
-        }
+        PriorityQueue<int, int> heap = new PriorityQueue<int, int>();
+        bool[] visited = new bool[n];
         Array.Fill(visited, false);
-        queue.Enqueue(k - 1, 0);
-        while (visitedCount < n && queue.TryDequeue(out int node, out int time))
+        int visitedCount = 0;
+        heap.Enqueue(source, 0);
+
+        while (heap.TryDequeue(out int node, out int weight) && visitedCount < n)
         {
-            result = time;
+            result[node] = weight;
             if (!visited[node])
             {
                 visited[node] = true;
                 visitedCount++;
                 foreach (int nxt in graph[node].Keys)
                 {
-                    queue.Enqueue(nxt, time + graph[node][nxt]);
+                    heap.Enqueue(nxt, weight + graph[node][nxt]);
                 }
             }
         }
 
-        if (visitedCount < n)
+        return result;
+    } 
+    public int NetworkDelayTime(int[][] times, int n, int k) 
+    {
+        Dictionary<int, int>[] graph = new Dictionary<int, int>[n];
+        graph = graph.Select(x => new Dictionary<int, int>()).ToArray();
+        foreach (int[] time in times)
         {
-            return -1;
+            graph[time[0] - 1].Add(time[1] - 1, time[2]);
         }
-        else
-        {
-            return result;
-        }
+
+        int[] result = Dijkstra(graph, k - 1);
+        Array.Sort(result);
+        return result[0] == -1 ? -1 : result.Last();
     }
 }
 // @lc code=end

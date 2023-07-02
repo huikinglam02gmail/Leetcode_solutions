@@ -10,28 +10,38 @@ from typing import List
 
 
 class Solution:
-    # Dijkstra's algorithm
+    '''
+    Dijkstra's algorithm    
+    '''
+    def Dijkstra(self, graph, source):
+        n = len(graph)
+        result = [-1] * n
+
+        heap = []
+        visited = [False]*n
+        visitedCount = 0
+        heapq.heappush(heap, [0, source])
+
+        while heap and visitedCount < n:
+            weight, node = heapq.heappop(heap)
+            result[node] = weight
+            if not visited[node]:
+                visited[node] = True
+                visitedCount += 1
+                for nxt in graph[node].keys():
+                    heapq.heappush(heap, [weight + graph[node][nxt], nxt])
+        
+        return result
+
+
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
         graph = [{} for i in range(n)]
         for time in times:
             graph[time[0] - 1][time[1] - 1] = time[2]
         
-        heap = []
-        visited = [False]*n
-        visitedCount = 0
-        heapq.heappush(heap, [0, k - 1])
+        result = self.Dijkstra(graph, k - 1)
+        result.sort()
 
-        while heap and visitedCount < n:
-            time, node = heapq.heappop(heap)
-            if not visited[node]:
-                visited[node] = True
-                visitedCount += 1
-                for nxt in graph[node].keys():
-                    heapq.heappush(heap, [time + graph[node][nxt], nxt])
-
-        if visitedCount < n:
-            return -1
-        else:
-            return time  
+        return -1 if result[0] == -1 else result[-1] 
             
 # @lc code=end
