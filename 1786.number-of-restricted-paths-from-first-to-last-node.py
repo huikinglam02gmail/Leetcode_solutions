@@ -56,9 +56,5 @@ class Solution:
                     result[nxt] += result[distanceToLastNodeSorted[j][0]]
                     result[nxt] %= MOD
         return result[-1]
-        
-        
-        
-        
 # @lc code=end
 
