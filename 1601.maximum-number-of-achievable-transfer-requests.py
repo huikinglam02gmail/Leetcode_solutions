@@ -5,17 +5,22 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
-    # 1 <= n <= 20
-    # 1 <= requests.length <= 16
-    # We can simply backtrack
-    # Find out if the final state occupancy is the same as initial, given different masks
+    '''
+    1 <= n <= 20
+    1 <= requests.length <= 16
+    We can simply backtrack
+    Find out if the final state occupancy is the same as initial, given different masks    
+    '''
 
     def maximumRequests(self, n: int, requests: List[List[int]]) -> int:
         result = 0
         m = len(requests)
         for mask in range(1 << m):
-            flow = [0]*n
+            flow = [0] * n
             count = 0
             for j in range(m):
                 if mask & (1 << j) != 0:
