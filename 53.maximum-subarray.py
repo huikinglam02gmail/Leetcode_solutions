@@ -9,7 +9,9 @@ from typing import List
 
 
 class Solution:
-    # Kadane's algorithm
+    '''
+    Kadane's algorithm    
+    '''
     def maxSubArray(self, nums: List[int]) -> int:      
         max_so_far = - float('inf')
         max_ending_here, n = 0, len(nums)
