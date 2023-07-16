@@ -5,9 +5,12 @@
  */
 
 // @lc code=start
-#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
+using std::unordered_map;
+using std::unordered_set;
+using std::vector;
 
 class Solution {
 public:
@@ -17,8 +20,8 @@ public:
      * nums[i] - rev(nums[i]) == nums[j] - rev(nums[j])
      * So we just maintain this difference and maintain a set
      */
-    int countNicePairs(std::vector<int>& nums) {
-        std::unordered_map<int, std::unordered_set<int>> hashTable;
+    int countNicePairs(vector<int>& nums) {
+        unordered_map<int, unordered_set<int>> hashTable;
         long long result = 0;
         long long MOD = 1000000007;
 
@@ -26,7 +29,7 @@ public:
             int num = nums[i];
             int diff = num - reverseNumber(num);
             if (hashTable.find(diff) == hashTable.end()) {
-                hashTable[diff] = std::unordered_set<int>();
+                hashTable[diff] = unordered_set<int>();
             }
             hashTable[diff].insert(i);
         }
