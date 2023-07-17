@@ -8,16 +8,18 @@
 #include<map>
 #include<string>
 #include<vector>
+using std::make_pair;
+using std::map;
+using std::min;
 using std::pair;
 using std::string;
-using std::map;
 using std::vector;
 class Solution {
 private:
     map<pair<string, int>, int> memo {};
     int dp(const string& state, int remainder, int batchSize) {
         if (state.length() == 0) return 0;
-        auto key = std::make_pair(state, remainder);
+        auto key = make_pair(state, remainder);
         if (memo.find(key) != memo.end()) {
             return memo[key];
         }
@@ -43,7 +45,7 @@ public:
         }
         int result = counts[0];
         for (int i = 1; i <= batchSize / 2; i++) {
-            int toReduce = (2 * i != batchSize) ? std::min(counts[i], counts[batchSize - i]) : counts[i] / 2;
+            int toReduce = (2 * i != batchSize) ? min(counts[i], counts[batchSize - i]) : counts[i] / 2;
             counts[i] -= toReduce;
             counts[batchSize - i] -= toReduce;
             result += toReduce;
