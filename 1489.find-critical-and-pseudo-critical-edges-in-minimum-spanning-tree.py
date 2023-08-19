@@ -25,13 +25,15 @@ class UnionFindSet:
     
 # UnionFind + Kruskal
 class Solution:
-    # An improvement is to identify the critical and pseudocritical edges when we build the MST
-    # Instead of finding the final minimum weight and compare by skipping and adding the edge in the MST
-    # If we group edges by weight and sort them from small to large:   
-    # We notice that the edges can be categorized into three catergories:
-    # 1. Redundant: the two vertices of the edge belong to the same parent
-    # 2. Critical: skipping this edge would result in increase of 1 in the number of clusters
-    # 3. Pseudocritical: skipping this edge would not change the number of clusters
+    '''
+    An improvement is to identify the critical and pseudocritical edges when we build the MST
+    Instead of finding the final minimum weight and compare by skipping and adding the edge in the MST
+    If we group edges by weight and sort them from small to large:   
+    We notice that the edges can be categorized into three catergories:
+    1. Redundant: the two vertices of the edge belong to the same parent
+    2. Critical: skipping this edge would result in increase of 1 in the number of clusters
+    3. Pseudocritical: skipping this edge would not change the number of clusters        
+    '''
 
     def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -> List[List[int]]:
         Weights = {}
