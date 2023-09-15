@@ -21,18 +21,20 @@ class UnionFindSet:
     def union(self, u, v):
         pu, pv = self.find(u), self.find(v)
         if pu != pv:
-            pMax, pMin = max(pu,pv), min(pu,pv)
+            pMax, pMin = max(pu, pv), min(pu, pv)
             self.parents[pMax] = pMin
             self.count -= 1
 
 class Solution:
-    # This is equivalent to find the minimum spanning tree
+    '''
+    This is equivalent to find the minimum spanning tree    
+    '''
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         n = len(points)
         heap = []
-        for i in range(n-1):
+        for i in range(n - 1):
             xi, yi = points[i]
-            for j in range(i+1, n):
+            for j in range(i + 1, n):
                 xj, yj = points[j]
                 heapq.heappush(heap, [abs(xi - xj) + abs(yi - yj), i, j])
         
@@ -41,7 +43,7 @@ class Solution:
         while DSU.count > 1:
             distance, u, v = heapq.heappop(heap)
             if DSU.find(u) != DSU.find(v):
-                DSU.union(u,v)
+                DSU.union(u, v)
                 result += distance
         return result
 # @lc code=end
