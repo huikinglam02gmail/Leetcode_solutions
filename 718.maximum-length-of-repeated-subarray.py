@@ -31,34 +31,31 @@ class Solution:
             h %= self.MOD
         return h
     
-    def foundSubArray(self, size):
-        '''
-        Go through all subarrays with length size in nums1, and record their hash values and the corresponding index        
-        '''
-        self.base, self.MOD = 101, pow(2,31)-1
-
-        seen = {}
+    def getAllHashOfSize(self, nums, seen, size):
         h = 0
-        for i in range(len(self.nums1) - size + 1):
-            h = self.rolling_hash(self.nums1, i, size, h)
+        for i in range(len(nums) - size + 1):
+            h = self.rolling_hash(nums, i, size, h)
             if h not in seen:
                 seen[h] = []
             seen[h].append(i)
-
-        '''
-        Check for nums2, see if any subarray of the same size is seen before        
-        '''
+        return seen
+    
+    def canFindSameHashSubArray(self, source, destination, seen, size):
         h = 0
-        for i in range(len(self.nums2) - size + 1):
-            h = self.rolling_hash(self.nums2, i, size, h)
+        for i in range(len(destination) - size + 1):
+            h = self.rolling_hash(destination, i, size, h)
             if h in seen:
                 for j in seen[h]:
-                    if self.nums1[j:j + size] == self.nums2[i:i + size]:
+                    if source[j:j+size] == destination[i:i+size]:
                         return True
-        return False    
+        return False
+
+    def foundSubArray(self, size):
+        seen = self.getAllHashOfSize(self.nums1, {}, size)
+        return self.canFindSameHashSubArray(self.nums1, self.nums2, seen, size) 
     
     def findLength(self, nums1: List[int], nums2: List[int]) -> int:
-        m, n = len(nums1), len(nums2)
+        m, n, self.base, self.MOD = len(nums1), len(nums2), 101, pow(2,31) - 1
         self.nums1 = nums1
         self.nums2 = nums2
 
