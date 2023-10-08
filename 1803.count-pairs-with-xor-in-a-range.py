@@ -5,6 +5,9 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class TrieNode():
     def __init__(self):
         self.children = [None, None]
