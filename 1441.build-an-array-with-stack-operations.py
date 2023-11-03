@@ -5,11 +5,17 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
-    # Just simulate
+    '''
+    Just simulate    
+    '''
+
     def buildArray(self, target: List[int], n: int) -> List[str]:
         result, j = [], 0
-        for i in range(1, n+1):
+        for i in range(1, n + 1):
             result.append("Push")
             if i == target[j]:
                 j += 1
