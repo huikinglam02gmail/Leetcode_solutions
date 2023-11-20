@@ -7,6 +7,7 @@
 // @lc code=start
 #include <vector>
 #include <unordered_map>
+#include <string>
 
 class Solution {
 public:
