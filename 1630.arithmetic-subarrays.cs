@@ -27,7 +27,7 @@ public class Solution
         List<bool> result = new List<bool>();
         for (int i = 0; i < l.Length; i++)
         {
-            result.Add(CanMakeArithmeticProgression());
+            result.Add(CanMakeArithmeticProgression(new List<int>(nums[l[i]..(r[i] + 1)]).ToArray()));
         }
         return result;   
     }

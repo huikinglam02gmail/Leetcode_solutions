@@ -9,12 +9,13 @@ from typing import List
 
 
 class Solution:
-    # No shortcut, just brute force
-
+    '''
+    No shortcut, just brute force    
+    '''
     def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
         arr.sort()
         diff, n = arr[1] - arr[0], len(arr)
-        for i in range(1,n-1):
+        for i in range(1, n - 1):
             if arr[i] + diff != arr[i+1]:
                 return False
         return True
