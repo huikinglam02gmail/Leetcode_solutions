@@ -26,16 +26,11 @@ class Solution:
         return max_area
     
     def largestSubmatrix(self, matrix: List[List[int]]) -> int:
-        max_area = 0
-        for i in range(len(matrix)):
-            if i == 0:
-                row = matrix[i].copy()
-            else:
-                for j in range(len(row)):
-                    if matrix[i][j] == 0:
-                        row[j] = 0
-                    else:
-                        row[j] += matrix[i][j]
+        max_area, m, n = 0, len(matrix), len(matrix[0])
+        row = [0] * n
+        for i in range(m):
+            for j in range(n):
+                row[j] = row[j] + 1 if matrix[i][j] else 0
             max_area = max(max_area, self.largestRectangleArea(sorted(row)))
         return max_area
 # @lc code=end
