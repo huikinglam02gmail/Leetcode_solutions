@@ -34,6 +34,7 @@ class Solution:
         result = set([""]) if remainCharacters == 0 else set()
         if remainCharacters > 0:
             for i, c in enumerate(availableCharacters):
+                if i > 0 and c == availableCharacters[i - 1]: continue
                 furtherSearchSet = self.generateCandidates(remainCharacters - 1, availableCharacters[:i] + availableCharacters[i+1:])
                 for s in furtherSearchSet: result.add(c + s)
         return result
@@ -48,8 +49,10 @@ class Solution:
             startingString += chr(i + ord('a')) * (occur[i] // k)
 
         for i in range(min(n // k, len(startingString)), 0, -1):
-            candidates = self.generateCandidates(i, startingString)
-            print(i, candidates)
+            candidates = sorted(self.generateCandidates(i, startingString), reverse=True)
+            for cand in candidates:
+                if self.isSubsequence(cand * k, s):
+                    return cand
         return ""
         
 # @lc code=end
