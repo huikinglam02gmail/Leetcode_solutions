@@ -10,7 +10,8 @@ from typing import List
 
 class Solution:
     '''
-    Use monotonic increasing stack to tackle the problem. Whenever the available elements left is more than k, we are free to remove from the back of stack if we can get lexicographically smaller stack
+    Use monotonic increasing stack to tackle the problem.
+    When the incoming number is smaller than stack[-1], we can pop from the stack if we can ensure we replace stack[-1] with nums[i:], we have enough elements to get to length of k
     '''
     def mostCompetitive(self, nums: List[int], k: int) -> List[int]:
         stack = []
