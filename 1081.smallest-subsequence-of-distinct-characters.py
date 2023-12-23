@@ -1,7 +1,7 @@
 #
-# @lc app=leetcode id=316 lang=python3
+# @lc app=leetcode id=1081 lang=python3
 #
-# [316] Remove Duplicate Letters
+# [1081] Smallest Subsequence of Distinct Characters
 #
 
 # @lc code=start
@@ -9,7 +9,7 @@ import bisect
 import heapq
 
 
-class Solution:
+class Solution:    
     '''
     First find all indices of appearance of each character.
     Then go from 'a' to 'z':
@@ -22,8 +22,8 @@ class Solution:
                 return False
         self.lastUsedIndex = ind
         return True
-                
-    def removeDuplicateLetters(self, s: str) -> str:
+    
+    def smallestSubsequence(self, s: str) -> str:
         self.appear = [[] for i in range(26)]
         needProcess = []
         for i, c in enumerate(s):
