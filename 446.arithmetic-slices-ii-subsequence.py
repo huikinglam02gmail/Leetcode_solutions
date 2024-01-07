@@ -5,22 +5,23 @@
 #
 
 # @lc code=start
-class Solution:
-    # dp[i][diff] = number of subsequences ending with nums[i] with difference of diff
+from typing import List
 
+
+class Solution:
+    '''
+    dp[i][diff] = number of subsequences ending with nums[i] with difference of diff    
+    '''
     def numberOfArithmeticSlices(self, nums: List[int]) -> int:
         n = len(nums)
-        if n < 3:
-            return 0
+        if n < 3: return 0
         dp =  [{} for i in range(n)]
         result = 0
-        for i in range(1,n):
+        for i in range(1, n):
             for j in range(i):
                 diff = nums[i] - nums[j]
                 # Add all previous elements as first step
-                if diff not in dp[i]:
-                    dp[i][diff] = 0
-                dp[i][diff] += 1
+                dp[i][diff] = dp[i].get(diff, 0) + 1
                 # look for longer subsequence
                 if diff in dp[j]:
                     dp[i][diff] += dp[j][diff]
