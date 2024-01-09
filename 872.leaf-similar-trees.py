@@ -11,8 +11,13 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from typing import Optional
+
+
 class Solution:
-    # dfs by post order traversal and record leaves
+    '''
+    dfs by post order traversal and record leaves    
+    '''
     def dfs(self, root):
         result = []
         if root.left:
@@ -29,8 +34,7 @@ class Solution:
         if len(leafseq1) != len(leafseq2):
             return False
         for v1, v2 in zip(leafseq1, leafseq2):
-            if v1 != v2:
-                return False
+            if v1 != v2: return False
         return True
 # @lc code=end
 
