@@ -11,13 +11,18 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from typing import Optional
+
+
 class Solution:
-    # We are looking for absolute differences between a node's val and all of its descendents. The parents will be taken care of by a recursive function (dfs)
-    # To simplify the process and get the absolute difference between a node and all its offspring, for example between a and {b1, b2, b3...}
-    # We can sort bns. Assume smallest is b1 and largest is bn
-    # When we calculate the maximum difference, the answer is max(abs(a-b1), abs(a-bn))
-    # As for the recursive nature, we return and max and min of {a, b1,..., bn} for a's parent
-    
+    '''
+    We are looking for absolute differences between a node's val and all of its descendents. The parents will be taken care of by a recursive function (dfs)
+    To simplify the process and get the absolute difference between a node and all its offspring, for example between a and {b1, b2, b3...}
+    We can sort bns. Assume smallest is b1 and largest is bn
+    When we calculate the maximum difference, the answer is max(abs(a-b1), abs(a-bn))
+    As for the recursive nature, we return and max and min of {a, b1,..., bn} for a's parent 
+    '''
+
     def dfs(self, root):
         result = [root.val, root.val]
         if root.left:
