@@ -5,10 +5,15 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
-    # DP problem
-    # dp[i][j] = minimum path sum to arrive at [i,j]
-    # dp[i][j] = matrix[i][j] + min(dp[i-1][j], dp[i-1][j-1], dp[i-1][j+1])
+    '''
+    DP problem
+    dp[i][j] = minimum path sum to arrive at [i,j]
+    dp[i][j] = matrix[i][j] + min(dp[i-1][j], dp[i-1][j-1], dp[i-1][j+1]) 
+    '''
     def minFallingPathSum(self, matrix: List[List[int]]) -> int:
         n = len(matrix)
         dp = []
