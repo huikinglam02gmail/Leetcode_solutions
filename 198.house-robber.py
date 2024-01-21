@@ -5,9 +5,15 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
-    # DP problem
-    # recurrence relation quite simple: dp[i] = max(nums[i] + dp[i-2], dp[i-1])
+    '''
+    DP problem: dp[i] = the maximum amount of money you can rob tonight without alerting the police, given nums[:i + 1]
+    recurrence relation quite simple: dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])   
+    '''
+
     def rob(self, nums: List[int]) -> int:
         n = len(nums)
         if n == 1:
@@ -19,7 +25,7 @@ class Solution:
             dp[0] = nums[0]
             dp[1] = max(nums[0], nums[1])
             for i in range(2, n, 1):
-                dp[i] = max(nums[i] + dp[i-2], dp[i-1])
-            return dp[n-1]
+                dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
+            return dp[n - 1]
 # @lc code=end
 
