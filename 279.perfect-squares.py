@@ -6,11 +6,14 @@
 
 # @lc code=start
 class Solution:
-    # The maximum answer must be either 1, 2, 3 or 4 (Lagrange's four-square theorem)
-    # If n is a perfect square, return 1
-    # If n is a sum of two perfect squares, return 2
-    # Else, we use Legendre's three-square theorem and test if
-    # n = 4^a*(8*b + 7)
+    '''
+    The maximum answer must be either 1, 2, 3 or 4 (Lagrange's four-square theorem)
+    If n is a perfect square, return 1
+    If n is a sum of two perfect squares, return 2
+    Else, we use Legendre's three-square theorem and test if
+    n = 4^a * (8 * b + 7)    
+    '''
+
     def numSquares(self, n: int) -> int:
         perfect = []
         for i in range(1,101,1):
