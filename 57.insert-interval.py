@@ -18,7 +18,7 @@ class Solution:
         if li < len(intervals):
             lval = min(intervals[li][0], lval)
         if ri > 0:
-            rval = max(intervals[ri-1][1], rval)
+            rval = max(intervals[ri - 1][1], rval)
         intervals[li:ri] = [[lval, rval]]
         return intervals
 # @lc code=end
