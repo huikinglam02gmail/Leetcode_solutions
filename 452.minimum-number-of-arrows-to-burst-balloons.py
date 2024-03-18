@@ -9,16 +9,19 @@ from typing import List
 
 
 class Solution:
+    '''
+    first sort according to x start
+    We keep the leftmost position of the current arrow's range (end)
+    '''
     def findMinArrowShots(self, points: List[List[int]]) -> int:
-        # first sort according to x start
         points.sort(key = lambda x: [x[0], x[1]])
         result, n = 1, len(points)
         end = points[0][1]
         for i in range(1, n):
-            if points[i][0] > end:
-                end = points[i][1]
+            if points[i][0] > end: 
                 result += 1
-            elif points[i][1] < end:
                 end = points[i][1]
-        return result# @lc code=end
+            end = min(end, points[i][1])
+        return result
+    # @lc code=end
 
