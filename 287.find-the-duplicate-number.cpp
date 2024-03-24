@@ -16,10 +16,8 @@ public:
         while (!match) {
             slow = nums[slow];
             fast = nums[nums[fast]];
-            
-            if (slow == fast) {
-                match = true;
-            }
+
+            match = (slow == fast);
         }
 
         slow = 0;
@@ -29,10 +27,7 @@ public:
             while (!match) {
                 slow = nums[slow];
                 fast = nums[fast];
-
-                if (nums[slow] == nums[fast]) {
-                    match = true;
-                }
+                match = (nums[slow] == nums[fast]);
             }
         }
 
