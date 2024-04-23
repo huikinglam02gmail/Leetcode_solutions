@@ -22,31 +22,35 @@ public class Solution {
     public string GetDirections(TreeNode r, int sV, int dV) {
         StringBuilder sp = new StringBuilder();
         StringBuilder dp = new StringBuilder();
-        GetPath(r, sV, sp);
-        GetPath(r, dV, dp);
-        
-        sp = new StringBuilder(new string(sp.ToString().Reverse().ToArray()));
-        dp = new StringBuilder(new string(dp.ToString().Reverse().ToArray()));
-        
-        while (sp.Length > 0 && dp.Length > 0 && sp[0] == dp[0]) {
-            sp.Remove(0, 1);
-            dp.Remove(0, 1);
+        GetPath(r, sV, ref sp);
+        GetPath(r, dV, ref dp);
+        string spString = sp.ToString();
+        string dpString = dp.ToString();
+
+        int startLevel = spString.Length - 1;
+        int destLevel = dpString.Length - 1;
+        while (startLevel >= 0 && destLevel >= 0 && spString[startLevel] == dpString[destLevel]){ 
+            --startLevel;
+            --destLevel;
         }
         
-        for (int i = 0; i < sp.Length; ++i) {
-            if (sp[i] == 'L' || sp[i] == 'R') sp[i] = 'U';
+        StringBuilder sb = new StringBuilder();
+        for (int i = startLevel; i >= 0; --i) {
+            sb.Append('U');
         }
-        
-        return sp.ToString() + dp.ToString();
+        for (int i = destLevel; i >= 0; --i) {
+            sb.Append(dpString[i]);
+        }       
+        return sb.ToString();
     }
     
-    public bool GetPath(TreeNode r, int v, StringBuilder p) {
+    public bool GetPath(TreeNode r, int v, ref StringBuilder p) {
         if (r.val == v) {
             return true;
-        } else if (r.left != null && GetPath(r.left, v, p)) {
+        } else if (r.left != null && GetPath(r.left, v, ref p)) {
             p.Append("L");
             return true;
-        } else if (r.right != null && GetPath(r.right, v, p)) {
+        } else if (r.right != null && GetPath(r.right, v, ref p)) {
             p.Append("R");
             return true;
         } else {

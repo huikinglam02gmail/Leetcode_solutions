@@ -16,11 +16,12 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-#include <iostream>
 #include <string>
 #include <algorithm>
 
 using namespace std;
+
+// Definition for a binary tree node.
 
 class Solution {
 public:
@@ -28,20 +29,19 @@ public:
         string sp, dp;
         getPath(r, sV, sp);
         getPath(r, dV, dp);
-        
-        reverse(sp.begin(), sp.end());
-        reverse(dp.begin(), dp.end());
-        
-        while (!sp.empty() && !dp.empty() && sp[0] == dp[0]) {
-            sp.erase(sp.begin());
-            dp.erase(dp.begin());
+
+        int startLevel = sp.length() - 1;
+        int destLevel = dp.length() - 1;
+        while (startLevel >= 0 && destLevel >= 0 && sp[startLevel] == dp[destLevel]) {
+            --startLevel;
+            --destLevel;
         }
-        
-        for (char& c : sp) {
-            if (c == 'L' || c == 'R') c = 'U';
+
+        string sb(startLevel + 1, 'U');
+        for (int i = destLevel; i >= 0; --i) {
+            sb += dp[i];
         }
-        
-        return sp + dp;
+        return sb;
     }
     
     bool getPath(TreeNode* r, int v, string& p) {
@@ -58,6 +58,7 @@ public:
         }
     }
 };
+
 
 // @lc code=end
 
