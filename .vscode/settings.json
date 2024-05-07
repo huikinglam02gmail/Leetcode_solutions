@@ -10,5 +10,6 @@
         "xlocnum": "cpp",
         "xutility": "cpp",
         "vector": "cpp"
-    }
+    },
+    "python.REPL.enableREPLSmartSend": false
 }
