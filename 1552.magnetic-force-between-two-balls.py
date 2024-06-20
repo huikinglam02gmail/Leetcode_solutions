@@ -9,11 +9,14 @@ from typing import List
 
 
 class Solution:
-    # Rather than trying to place m balls into different configurations to optimize
-    # We should change our perspective, and ask:
-    # What is the maximum number of balls we can put inside the given baskets such that the minimum distance between two balls is at least d? f(d)
-    # We see that with larger d, f is nonincreasing because we are limited by the separation constraint
-    # Therefore, we can binary search for d, such that f(d) = m and f(d + 1) < m
+    '''
+    Rather than trying to place m balls into different configurations to optimize
+    We should change our perspective, and ask:
+    What is the maximum number of balls we can put inside the given baskets such that the minimum distance between two balls is at least d? f(d)
+    We see that with larger d, f is nonincreasing because we are limited by the separation constraint
+    Therefore, we can binary search for d, such that f(d) = m and f(d + 1) < m    
+    '''
+
     
     def ballCount(self, d):
         curr, ans = - float('inf'), 0
