@@ -15,11 +15,14 @@ from collections import deque
 
 
 class Solution:
-    # The number of nodes in the tree is in the range [1, 210].
+    '''
+     # The number of nodes in the tree is in the range [1, 210].
     # 1 <= Node.val <= 100
     # 1 <= distance <= 10
     # As node values might not be unique, we instead should use the binary tree node ID to denote different nodes
-    # Because distance is quite limited, we can BFS from different leaves and report when we see other leaves 
+    # Because distance is quite limited, we can BFS from different leaves and report when we see other leaves    
+    '''
+
     def countPairs(self, root: TreeNode, distance: int) -> int:
         dq = deque()
         dq.append((root, 0))
