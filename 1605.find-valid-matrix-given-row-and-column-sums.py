@@ -9,7 +9,9 @@ from typing import List
 
 
 class Solution:
-    # Since we are looking for nonnegative elements, we are free to insert a lot of zeros
+    '''
+    Since we are looking for nonnegative elements, we are free to insert a lot of zeros    
+    '''
     def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
         m, n = len(rowSum), len(colSum)
         result = [[0 for j in range(n)] for i in range(m)]
