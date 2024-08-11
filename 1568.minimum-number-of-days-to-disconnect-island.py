@@ -10,13 +10,16 @@ from typing import List
 
 
 class Solution:
-    # This problem is related to the number of island problem
-    # We should first find the number of islands in the grid
-    # If there is more than 1, just return 0
-    # If there is 1, we then try to change one of the grid members to 0 and run number of island code again
-    # If any of them result in more than 1 island, we return 1
-    # Otherwise, return 2
-    # Reason: we can always use the deletions to given an isolated island on the edge, as shown in Example 1
+    '''
+    This problem is related to the number of island problem
+    We should first find the number of islands in the grid
+    If there is more than 1, just return 0
+    If there is 1, we then try to change one of the grid members to 0 and run number of island code again
+    If any of them result in more than 1 island, we return 1
+    Otherwise, return 2
+    Reason: we can always use the deletions to given an isolated island on the edge, as shown in Example 1    
+    '''
+
     
     def numIslands(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
@@ -51,8 +54,7 @@ class Solution:
                     if grid[i][j] == 1:
                         grid[i][j] = 0
                         modifiedIslands = self.numIslands(grid)
-                        if modifiedIslands != 1:
-                            return 1
+                        if modifiedIslands != 1: return 1
                         grid[i][j] = 1
             return 2
         
