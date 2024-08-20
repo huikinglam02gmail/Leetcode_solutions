@@ -22,17 +22,15 @@ class Solution:
     @lru_cache(None)
     def dp(self, i, m):
         result = self.piles[i]
-        if i + 2*m < self.n:
+        if i + 2 * m < self.n:
             optimize = float('inf')
-            for x in range(1, 2*m+1):
-                optimize = min(optimize, self.dp(i+x, max(m,x)))
+            for x in range(1, 2 * m + 1): optimize = min(optimize, self.dp(i + x, max(m, x)))
             result -= optimize
         return result
             
     def stoneGameII(self, piles: List[int]) -> int:
         self.n, self.piles = len(piles), piles
-        for i in range(self.n-2,-1,-1):
-            self.piles[i] += self.piles[i+1]
-        return self.dp(0,1)
+        for i in range(self.n - 2, -1, -1): self.piles[i] += self.piles[i + 1]
+        return self.dp(0, 1)
 # @lc code=end
 
