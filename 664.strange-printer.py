@@ -20,20 +20,16 @@ class Solution:
     def strangePrinter(self, s: str) -> int:
         string = ""
         for c in s:
-            if not string or c != string[-1]:
-                string += c
+            if not string or c != string[-1]: string += c
         dp = [[0 for i in range(len(string))] for j in range(len(string))]
         for j in range(len(string)):
-            for i in range(j,-1,-1):
-                if i == j:
-                    dp[i][j] = 1
-                elif i == j - 1:
-                    dp[i][j] = 2
+            for i in range(j, -1, -1):
+                if i == j: dp[i][j] = 1
+                elif i == j - 1: dp[i][j] = 2
                 else:
-                    dp[i][j] = 1 + dp[i+1][j]
+                    dp[i][j] = 1 + dp[i + 1][j]
                     for k in range(i + 1, j + 1):
-                        if string[i] == string[k]:
-                            dp[i][j] = min(dp[i][j], dp[i+1][k-1] + dp[k][j])
-        return dp[0][len(string)-1]
+                        if string[i] == string[k]: dp[i][j] = min(dp[i][j], dp[i + 1][k - 1] + dp[k][j])
+        return dp[0][len(string) - 1]
 # @lc code=end
 
