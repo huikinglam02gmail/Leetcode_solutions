@@ -34,17 +34,12 @@ class Solution:
     '''
 
     def sumSubarrayMins(self, arr: List[int]) -> int:
-        stack, dp = [], []
-        arr = [0] + arr
+        stack, dp = [0], [0]
+        arr = [-float("inf")] + arr
         result, MOD = 0, pow(10, 9) + 7
-        for i, num in enumerate(arr):
-            if i == 0:
-                dp.append(arr[i])
-            else:
-                while arr[stack[-1]] > num:
-                    stack.pop()
-                j = stack[-1]
-                dp.append(dp[j] + (i - j) * num)
+        for i in range(1, len(arr)):
+            while arr[stack[-1]] > arr[i]: stack.pop()
+            dp.append(dp[stack[-1]] + (i - stack[-1]) * arr[i])
             stack.append(i)
             dp[i] %= MOD
             result += dp[i]
