@@ -16,8 +16,7 @@ class Solution:
     '''
     def chalkReplacer(self, chalk: List[int], k: int) -> int:
         prefix = [0]
-        for num in chalk:
-            prefix.append(prefix[-1] + num)
+        for num in chalk: prefix.append(prefix[-1] + num)
         return bisect.bisect_right(prefix, k % prefix[-1]) - 1
 # @lc code=end
 
