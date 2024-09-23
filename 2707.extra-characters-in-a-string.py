@@ -14,7 +14,7 @@ class Solution:
     1 <= dictionary.length <= 50
     1 <= dictionary[i].length <= 50
     dp[i] =  minimum number of extra characters left over if you break up s[i:] optimally
-    dp[i] = min(1 + dp[j] if s[i:j] is not inside dictionary;
+    dp[i] = min(j - i + dp[j] if s[i:j] is not inside dictionary;
                 dp[j] if s[i:j] is inside dictionary)
     '''
     def minExtraChar(self, s: str, dictionary: List[str]) -> int:
