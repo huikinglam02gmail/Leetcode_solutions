@@ -29,8 +29,7 @@ class Solution:
 
     def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
         s1Split, s2Split = sentence1.split(" "), sentence2.split(" ")
-        if len(s1Split) < len(s2Split):
-            s1Split, s2Split = s2Split, s1Split
+        if len(s1Split) < len(s2Split): s1Split, s2Split = s2Split, s1Split
         return self.similar(s1Split, s2Split) or self.similar(s1Split[::-1], s2Split[::-1])
 # @lc code=end
 
