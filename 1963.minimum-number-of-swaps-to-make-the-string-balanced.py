@@ -12,10 +12,8 @@ class Solution:
     def minSwaps(self, s: str) -> int:
         balance, result = 0, 0
         for c in s:
-            if c =="[":
-                balance += 1
-            else:
-                balance -= 1
+            if c =="[": balance += 1
+            else: balance -= 1
             result = min(result, balance)
         return (1 - result) // 2
 # @lc code=end
