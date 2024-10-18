@@ -20,8 +20,7 @@ class Solution:
         i = 0
         hashTable = {}
         for mask in range(1, 1 << n, 1):
-            while mask >= (1 << i):
-                i += 1
+            while mask >= (1 << i): i += 1
             subSetMask[mask] = nums[i - 1] | subSetMask[mask - (1 << (i - 1))]
             hashTable[subSetMask[mask]] = hashTable.get(subSetMask[mask], 0) + 1
         return hashTable[max(hashTable.keys())]
