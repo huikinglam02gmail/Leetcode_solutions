@@ -20,8 +20,8 @@ class Solution:
         n = len(nums)
         forward = []
         reverse = []
-        dpForward = [0]*(n + 2)
-        dpReverse = [0]*(n + 2)
+        dpForward = [0] * (n + 2)
+        dpReverse = [0] * (n + 2)
         forward.append([0, 0])
         for i in range(n):
             index = bisect.bisect_left(forward, nums[i], key = itemgetter(0))
@@ -30,8 +30,7 @@ class Solution:
                 forward.append([nums[i], i + 1])
             else:
                 dpForward[i + 1] = dpForward[forward[index - 1][1]] + 1
-                if forward[index][0] > nums[i]:
-                    forward[index] = [nums[i], i + 1] 
+                if forward[index][0] > nums[i]: forward[index] = [nums[i], i + 1] 
         
         reverse.append([0, n + 1])
         for i in range(n - 1, -1, -1):
@@ -41,13 +40,11 @@ class Solution:
                 reverse.append([nums[i], i + 1])
             else:
                 dpReverse[i + 1] = dpReverse[reverse[index - 1][1]] + 1
-                if reverse[index][0] > nums[i]:
-                    reverse[index] = [nums[i], i + 1]
+                if reverse[index][0] > nums[i]: reverse[index] = [nums[i], i + 1]
 
         result = n
         for i in range(2, n):
-            if dpForward[i] > 1 and dpReverse[i] > 1:
-                result = min(result, n + 1 - dpForward[i] - dpReverse[i])
+            if dpForward[i] > 1 and dpReverse[i] > 1: result = min(result, n + 1 - dpForward[i] - dpReverse[i])
         return result
 
         
