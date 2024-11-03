@@ -14,7 +14,7 @@ class Solution:
         for num in nums: counts[num - 1] += 1
         result = 0
         for i in range(50):
-            if counts[i] == 2: result ^= (i - 1)
+            if counts[i] == 2: result ^= (i + 1)
         return result        
 # @lc code=end
 
