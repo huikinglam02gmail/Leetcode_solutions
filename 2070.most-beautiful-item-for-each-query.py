@@ -16,8 +16,7 @@ class Solution:
     '''
     def maximumBeauty(self, items: List[List[int]], queries: List[int]) -> List[int]:
         Q = []
-        for i, q in enumerate(queries):
-            Q.append([q, i])
+        for i, q in enumerate(queries): Q.append([q, i])
         Q.sort()
         items.sort()
         result = [0] * len(queries)
