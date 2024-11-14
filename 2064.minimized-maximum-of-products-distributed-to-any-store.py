@@ -22,10 +22,8 @@ class Solution:
             mid =  l + (r - l) // 2
             numPeople = 0
             for q in quantities: numPeople += self.ceildiv(q, mid)
-            if numPeople <= n:
-                r = mid
-            else:
-                l = mid + 1
+            if numPeople <= n: r = mid
+            else: l = mid + 1
         return l
 
 
