@@ -21,10 +21,8 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 S += abs(matrix[i][j])
-                if matrix[i][j] == 0:
-                    zeros += 1
-                elif matrix[i][j] < 0:
-                    negs += 1
+                if matrix[i][j] == 0: zeros += 1
+                elif matrix[i][j] < 0: negs += 1
                 minAbsSoFar = min(minAbsSoFar, abs(matrix[i][j]))
         return S if (zeros > 0 or negs % 2 == 0) else S - 2 * minAbsSoFar
         
