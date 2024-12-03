@@ -11,15 +11,14 @@ from typing import List
 
 class Solution:
     def addSpaces(self, s: str, spaces: List[int]) -> str:
-        dq = deque()
-        ns, nSpace, j = len(s), len(spaces), 0
-        for i in range(ns):
-            if j < nSpace and i == spaces[j]:
-                dq.append(" ")
-                j += 1
-            dq.append(s[i])
         result = ""
-        while dq: result += dq.popleft()
+        j = 0
+        for i in range(len(s)):
+            if j < len(spaces) and spaces[j] == i: 
+                result += " "
+                j += 1            
+            result += s[i]
         return result
+
 # @lc code=end
 
