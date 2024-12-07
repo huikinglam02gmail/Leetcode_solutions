@@ -11,7 +11,7 @@ from typing import List
 class Solution:
     '''
     1 <= maxOperations, nums[i] <= 10^9: we know using priority queue is not a good idea
-    let's frame the question differently, suppose ans is the solution. How many operations to get there?
+    let's frame the question differently, suppose ans is the final answer. How many operations to get there?
     suppose we have nums[i] = 8 and ans is 3.
     The division procedure that minimizes operation is 8 -> [3, 5] - > [3, 3, 2], with 2 = 8 // 3 operations
     And we know with ans increasing, the number of operations decreases.
@@ -21,8 +21,7 @@ class Solution:
         result = 0
         for num in self.nums:
             result += num // maxN
-            if num % maxN == 0:
-                result -= 1
+            if num % maxN == 0: result -= 1
         return result
 
     def minimumSize(self, nums: List[int], maxOperations: int) -> int:
