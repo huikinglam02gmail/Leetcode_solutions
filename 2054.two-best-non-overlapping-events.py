@@ -18,11 +18,9 @@ class Solution:
         events.sort(key = lambda x: x[1])
         heap = []
         result = 0
+        for s, e, v in events: heapq.heappush(heap, [- v, s])
         for s, e, v in events:
-            heapq.heappush(heap, [- v, s])
-        for s, e, v in events:
-            while heap and heap[0][1] <= e:
-                heapq.heappop(heap)
+            while heap and heap[0][1] <= e: heapq.heappop(heap)
             current = 0
             if heap: current -= heap[0][0]
             result = max(result, v + current)
