@@ -5,6 +5,9 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
     '''
     Sort coins
@@ -17,10 +20,8 @@ class Solution:
         coins.sort()
         possible = 0
         for coin in coins:
-            if possible + 1 < coin:
-                break
-            else:
-                possible += coin
+            if possible + 1 < coin: break
+            else: possible += coin
         return possible + 1
 # @lc code=end
 
