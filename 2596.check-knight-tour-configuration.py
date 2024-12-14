@@ -14,6 +14,7 @@ class Solution:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 seq[grid[i][j]] = [i, j]
+        if seq[0] != [0, 0]: return False
         for i in range(len(grid) * len(grid) - 1):
             if abs(seq[i][0] - seq[i + 1][0]) * abs(seq[i][1] - seq[i + 1][1]) != 2: return False
         return True
