@@ -5,15 +5,20 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
-    # Monotonic increasing stack
+    '''
+    Monotonic increasing stack
+    '''
+
     def finalPrices(self, prices: List[int]) -> List[int]:
         stack = []
         result = [price for price in prices]
         n = len(prices)
         for i in range(n):
-            while stack and prices[stack[-1]] >= prices[i]:
-                result[stack.pop()] -= prices[i]
+            while stack and prices[stack[-1]] >= prices[i]: result[stack.pop()] -= prices[i]
             stack.append(i)
         return result
 # @lc code=end
