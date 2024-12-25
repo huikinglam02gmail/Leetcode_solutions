@@ -16,8 +16,11 @@ from typing import List, Optional
 
 
 class Solution:
+    '''
+    Use BFS to find max level by level    
+    '''
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
-        # Use BFS to find max level by level
+
         result = []
         dq = deque()
         if root:
@@ -27,10 +30,8 @@ class Solution:
             for i in range(len(dq)):
                 node = dq.popleft()
                 current_max = max(current_max, node.val)
-                if node.left:
-                    dq.append(node.left)
-                if node.right:
-                    dq.append(node.right)
+                if node.left: dq.append(node.left)
+                if node.right: dq.append(node.right)
             result.append(current_max)
         return result
 # @lc code=end
