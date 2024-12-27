@@ -20,8 +20,7 @@ class Solution:
         n, max_so_far = len(values), 0
         for i in range(1, n):
             curr = values[i - 1] + values[i] - 1
-            if i > 1:
-                curr = max(curr, last - values[i - 1] + values[i] - 1)
+            if i > 1: curr = max(curr, last - values[i - 1] + values[i] - 1)
             last = curr
             max_so_far = max(max_so_far, last)
         return max_so_far
