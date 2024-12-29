@@ -21,11 +21,10 @@ class Solution:
 
     def numWays(self, words: List[str], target: str) -> int:
         m, n, MOD = len(words[0]), len(target), pow(10, 9) + 7
-        dp = [1] + [0]*n
+        dp = [1] + [0] * n
         for i in range(m):
-            seen = [0]*26
-            for word in words:
-                seen[ord(word[i]) - ord('a')] += 1
+            seen = [0] * 26
+            for word in words: seen[ord(word[i]) - ord('a')] += 1
             for j in range(n - 1, -1, -1):
                 dp[j + 1] += dp[j] * seen[ord(target[j]) - ord('a')]
                 dp[j + 1] %= MOD
