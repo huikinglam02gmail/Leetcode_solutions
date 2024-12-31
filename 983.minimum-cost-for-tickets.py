@@ -16,8 +16,7 @@ class Solution:
     '''
     @lru_cache(None)
     def dfs(self, i):
-        if i == self.n:
-            return 0
+        if i == self.n: return 0
         result = float('inf')
         result = min(result, self.costs[0] + self.dfs(i + 1))
         index_7 = bisect.bisect_left(self.days, self.days[i] + 7)
