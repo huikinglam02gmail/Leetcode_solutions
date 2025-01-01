@@ -12,8 +12,7 @@ class Solution:
         totalOnes = n - totalZeros
         score, zeros = 0, 0
         for i in range(n-1):
-            if s[i] == '0':
-                zeros += 1
+            if s[i] == '0': zeros += 1
             score = max(score, zeros + totalOnes - (i + 1 - zeros))
         return score
         
