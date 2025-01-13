@@ -7,15 +7,11 @@
 # @lc code=start
 class Solution:
     def minimumLength(self, s: str) -> int:
-        stack = [ [] for i in range(26)]
-        for i in range(len(s)):
-            ind = ord(s[i]) - ord('a')
-            if len(stack[ind]) == 2:
-                keep = stack[ind].pop()
-                stack[ind].pop()
-                stack[ind].append(keep)
-            else:
-                stack[ind].append(i)
-        return sum(len(x) for x in stack)
+        count = [0 for i in range(26)]
+        for i in range(len(s)): count[ord(s[i]) - ord('a')] += 1
+        result = 0
+        for i in range(26):
+            if count[i] > 0: result += 1 + (count[i] - 1) % 2
+        return result
 # @lc code=end
 
