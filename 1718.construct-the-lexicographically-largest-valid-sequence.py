@@ -21,16 +21,13 @@ class Solution:
             return self.backtrack(i + 1)
         else:
             for j in range(self.n, 0, -1):
-                if j not in self.used and (i + j < 2*self.n - 1 if j > 1 else True) and self.arr[i] == 0 and (True if j == 1 else self.arr[i + j] == 0):
+                if j not in self.used and (j == 1 or (i + j < 2*self.n - 1 and self.arr[i + j] == 0)):
                     self.used.add(j)
                     self.arr[i] = j
-                    if j > 1:
-                        self.arr[i + j] = j
-                    if self.backtrack(i + 1):
-                        return True
+                    if j > 1: self.arr[i + j] = j
+                    if self.backtrack(i + 1): return True
                     self.arr[i] = 0
-                    if j > 1:
-                        self.arr[i + j] = 0
+                    if j > 1: self.arr[i + j] = 0
                     self.used.remove(j)
             return False
 
