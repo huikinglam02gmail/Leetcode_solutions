@@ -19,10 +19,8 @@ class Solution:
         n = len(nums)
         i = 0
         while i < (1 << n):
-            if bin(i)[2:].zfill(n) not in nums:
-                return bin(i)[2:].zfill(n)
-            else:
-                i += 1
+            if bin(i)[2:].zfill(n) not in nums: return bin(i)[2:].zfill(n)
+            else: i += 1
         return ""
 # @lc code=end
 
