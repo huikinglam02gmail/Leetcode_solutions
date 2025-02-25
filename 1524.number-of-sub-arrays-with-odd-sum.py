@@ -5,9 +5,14 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
-    # Just break down the problem more generally: what is the number of subarrays ending at index i with an odd and even sum?
-    # dp[i][0 vs 1]
+    '''
+    Just break down the problem more generally: what is the number of subarrays ending at index i with an odd and even sum?
+    dp[i][0 vs 1]    
+    '''
     def numOfSubarrays(self, arr: List[int]) -> int:
         odd, even, n, result, MOD = 0, 0, len(arr), 0, pow(10,9) + 7
         for i in range(n):
