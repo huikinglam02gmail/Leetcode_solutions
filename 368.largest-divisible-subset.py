@@ -14,15 +14,8 @@ class Solution:
         dp = [[num] for num in nums]
         for i in range(1, len(nums)):
             for j in range(i):
-                if nums[i] % nums[j] == 0:
-                    if len(dp[i]) < len(dp[j]) + 1:
-                        dp[i] = dp[j] + [nums[i]]
-        index = 0
-        max_length = 1
-        for i, item in enumerate(dp):
-            if len(item) > max_length:
-                index = i
-                max_length = len(item)
-        return dp[index]
+                if nums[i] % nums[j] == 0 and len(dp[i]) < len(dp[j]) + 1: dp[i] = dp[j] + [nums[i]]
+        dp.sort(key = lambda x: - len(x))
+        return dp[0]
 # @lc code=end
 
