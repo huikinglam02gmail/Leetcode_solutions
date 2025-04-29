@@ -10,20 +10,17 @@ from typing import List
 
 
 class Solution:
-    '''
-    Find max(nums) first
-    Then record appearance of maxNums: appear
-    For each i, we binary search right i in appear. If index >= k, appear[index - k] subarrays ending at i satisfy the condition 
-    '''
     def countSubarrays(self, nums: List[int], k: int) -> int:
-        maxNum, n = max(nums), len(nums)
-        appear = []
+        maxNum =  max(nums)
+        hashTable = {}
+        l = 0
         result = 0
-        for i, num in enumerate(nums):
-            if num == maxNum: appear.append(i)
-        for i in range(n):
-            index = bisect.bisect_right(appear, i)
-            if index >= k: result += appear[index - k] + 1
+        for num in nums:
+            hashTable[num] = hashTable.get(num, 0) + 1
+            while hashTable.get(maxNum, 0) >= k:
+                hashTable[nums[l]] -= 1
+                l += 1
+            result += l
         return result
 # @lc code=end
 
