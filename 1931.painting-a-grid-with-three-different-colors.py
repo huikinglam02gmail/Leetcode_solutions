@@ -13,12 +13,11 @@ class Solution:
     1 <= m <= 5
     1 <= n <= 1000
     So we add columns from left to right
-    We have 3 colors, so we can represent each state of each cell with a bitmask of size 3: state = [001 or 010 or 100], and to considereach row, we shift the state: state << 3, and keep adding. 
+    We have 3 colors, so we can represent each state of each cell with a bitmask of size 3: state = [001 or 010 or 100], and to consider each row, we shift the state: state << 3, and keep adding. 
     '''
     def statesAreCompatible(self, state1, state2):
         while state1 > 0 and state2 > 0:
-            if state1 % (1 << 3) == state2 % (1 << 3):
-                return False
+            if state1 % (1 << 3) == state2 % (1 << 3): return False
             state1 >>= 3
             state2 >>= 3
         return True
@@ -37,19 +36,16 @@ class Solution:
                         dq.append(newState ^ (1 << j))
             steps += 1
 
-        if n == 1:
-            return len(dq)        
+        if n == 1: return len(dq)        
 
         possibleStates = []
-        while dq:
-            possibleStates.append(dq.popleft())
+        while dq: possibleStates.append(dq.popleft())
 
         currentToPrevMap = {}
         for key in possibleStates:
             currentToPrevMap[key] = set()
             for key1 in  possibleStates:
-                if self.statesAreCompatible(key, key1):
-                    currentToPrevMap[key].add(key1)
+                if self.statesAreCompatible(key, key1): currentToPrevMap[key].add(key1)
 
         dp = {}
         for key in possibleStates:
