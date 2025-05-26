@@ -30,8 +30,7 @@ class Solution:
 
         dq = deque()
         for i in range(n):
-            if adjacency[i] == 0:
-                dq.append(i)
+            if adjacency[i] == 0: dq.append(i)
         
         while dq:
             node = dq.popleft()
@@ -41,13 +40,10 @@ class Solution:
                 for j in range(26):
                     colorValues[nxt][j] = max(colorValues[nxt][j], colorValues[node][j])
                 adjacency[nxt] -= 1
-                if adjacency[nxt] == 0:
-                    dq.append(nxt)
+                if adjacency[nxt] == 0: dq.append(nxt)
         
-        if sum(adjacency) > 0:
-            return -1
-        else:
-            return result
+        if sum(adjacency) > 0: return -1
+        else: return result
  
 # @lc code=end
 
