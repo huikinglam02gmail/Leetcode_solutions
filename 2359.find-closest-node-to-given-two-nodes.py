@@ -10,9 +10,11 @@ from typing import List
 
 
 class Solution:
-    # BFS fromn node1 to all other nodes, record the distance
-    # Do the same for node2
-    # Then find the index
+    '''
+    BFS fromn node1 to all other nodes, record the distance
+    Do the same for node2
+    Then find the index    
+    '''
     def bfs(self, startNode, distanceArray):
         dq = deque()
         visited = set()
