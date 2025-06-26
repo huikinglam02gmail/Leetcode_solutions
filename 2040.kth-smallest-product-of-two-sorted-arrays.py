@@ -11,7 +11,7 @@ from typing import List
 
 class Solution:
     '''
-    We are going to binary search for the solution. However, we should notice we have 9 cases:
+    We are going to binary search for the solution. However, we should notice we have 6 cases:
     1. nums1[i] > 0, nums2[j] > 0, product > 0
     2. nums1[i] < 0, nums2[j] > 0, product < 0
     3. nums1[i] > 0, nums2[j] < 0, product < 0
