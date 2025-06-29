@@ -17,10 +17,8 @@ class Solution:
         MOD = pow(10,9) + 7
         pow2 = []
         for i in range(len(nums)):
-            if i == 0:
-                pow2.append(1)
-            else:
-                pow2.append((pow2[-1]*2) % MOD)
+            if i == 0: pow2.append(1)
+            else: pow2.append((pow2[-1] * 2) % MOD)
 
         nums.sort()
         result = 0
