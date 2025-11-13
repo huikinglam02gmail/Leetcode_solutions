@@ -14,11 +14,8 @@ class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         result = []
         for i, num in enumerate(nums):
-            if i == 0 or num > result[-1]: 
-                result.append(num)
-            elif num < result[-1]:
-                index = bisect.bisect_left(result, num)
-                result[index] = num
+            if i == 0 or num > result[-1]: result.append(num)
+            else: result[bisect.bisect_left(result, num)] = num
         return len(result)
 # @lc code=end
 
