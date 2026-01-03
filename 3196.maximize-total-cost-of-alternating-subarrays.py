@@ -17,7 +17,10 @@ class Solution:
     - Flip c: +a +b -c = [a] + [b, c]
     dp[i][0] = max total cost ending at index i with the ith element not flipped
     dp[i][1] = max total cost ending at index i with the ith element flipped
-    Take note: the first element cannot be flipped
+    Take note: 
+    1. the first element cannot be flipped
+    2. If we flip the ith element, the (i-1)th element cannot be flipped
+    3. Otherwise, we can choose to flip or not flip the (i-1)th element
     '''
 
     def maximumTotalCost(self, nums: List[int]) -> int:
