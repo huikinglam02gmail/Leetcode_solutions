@@ -23,7 +23,7 @@ class Solution:
                 numPairs -= hashTable[nums[l]]
                 l += 1
             result += l
-        return result
+        return result   
             
         
 # @lc code=end
